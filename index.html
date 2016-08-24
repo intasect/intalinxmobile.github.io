@@ -31,11 +31,14 @@
 		        </p>
 		    </md-card-content>
 		    <md-card-actions layout="row" layout-align="center center">
-		    	<md-button md-no-ink class="md-primary">
-		    		<a ng-href="{{downloadUrl}}" ng-click="download()">
-		    		{{downloadText}}
+		    	<md-button md-no-ink class="md-primary" ng-show="!isWechat">
+		    		<a href="itms-services://?action=download-manifest&url=https://intasect.github.io/intalinx.plist" ng-click="download()">
+		    		ダウンロード
 		    		</a>
 		    	</md-button>
+		    	<a href="#" ng-show="isWechat">
+		    		ブラウザ/Safaraで開いてダウンロードしてください。
+	    		</a>
 		    </md-card-actions>
 		</md-card>
 		</md-content>
@@ -65,12 +68,11 @@
           		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|itms-services):/);
     		}]).
     		controller('DownloadCtrl', function($scope, $mdDialog) {
-		  		$scope.downloadUrl = "";
+		  		$scope.isWechat = true;
 		  		if (/micromessenger/.test(navigator.userAgent.toLowerCase())) {
-		  			$scope.downloadText = "ブラウザ/Safaraで開いてダウンロードしてください。";
+		  			
 		  		} else {
-		  			$scope.downloadText = "ダウンロード";
-	  				$scope.downloadUrl = "itms-services://?action=download-manifest&url=https://intasect.github.io/intalinx.plist";
+		  			$scope.isWechat = false;
 	  			}
 		  		$scope.download = function() {
 		  			alert = $mdDialog.alert({
