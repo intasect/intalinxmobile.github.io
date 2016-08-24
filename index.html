@@ -1,9 +1,10 @@
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Angular Material style sheet -->
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-  <title>IntaLinx Mobile@beta</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Angular Material style sheet -->
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	<title>IntaLinx Mobile@beta</title>
 </head>
 <body ng-app="DownloadApp" ng-cloak>
   <!--
@@ -26,13 +27,13 @@
 		    </md-card-title>
 		    <md-card-content>
 		        <p>
-					You can download IntaLinx Mobile@beta version for test.
+					IntaLinx Mobileの開発中バージョンはここからダウンロードできます。
 		        </p>
 		    </md-card-content>
 		    <md-card-actions layout="row" layout-align="center center">
 		    	<md-button md-no-ink class="md-primary">
-		    		<a href="itms-services://?action=download-manifest&url=https://intasect.github.io/intalinx.plist">
-		    		Download
+		    		<a ng-href="{{downloadUrl}}" ng-click="download()">
+		    		{{downloadText}}
 		    		</a>
 		    	</md-button>
 		    </md-card-actions>
@@ -60,7 +61,16 @@
 		* You must include the dependency on 'ngMaterial' 
 		*/
 	  	angular.module('DownloadApp', ['ngMaterial', 'monospaced.qrcode']).controller('DownloadCtrl', function($scope) {
-			$scope.imagePath = 'img/washedout.png';
+	  		$scope.downloadUrl = "";
+	  		if (/micromessenger|line/.test(navigator.userAgent.toLowerCase())) {
+	  			$scope.downloadText = "ブラウザ/Safaraで開いてダウンロードしてください。";
+	  		} else {
+	  			$scope.downloadText = "ダウンロード";
+  				$scope.downloadUrl = "itms-services://?action=download-manifest&url=https://intasect.github.io/intalinx.plist";
+  			}
+	  		$scope.download = function() {
+	  			
+	  		}
 		});;
 	</script>
   
