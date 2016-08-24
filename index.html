@@ -62,7 +62,7 @@
 		*/
 	  	angular.module('DownloadApp', ['ngMaterial', 'monospaced.qrcode']).
 	  		config(['$compileProvider' , function ($compileProvider) {
-          		$compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|itms-services):/);
+          		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|itms-services):/);
     		}]).
     		controller('DownloadCtrl', function($scope) {
 	  		$scope.downloadUrl = "";
