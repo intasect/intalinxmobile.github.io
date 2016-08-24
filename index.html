@@ -61,21 +61,28 @@
 		* You must include the dependency on 'ngMaterial' 
 		*/
 	  	angular.module('DownloadApp', ['ngMaterial', 'monospaced.qrcode']).
-	  		config(['$compileProvider' , function ($compileProvider) {
+	  		config(['$compileProvider', function ($compileProvider) {
           		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|itms-services):/);
     		}]).
-    		controller('DownloadCtrl', function($scope) {
-	  		$scope.downloadUrl = "";
-	  		if (/micromessenger/.test(navigator.userAgent.toLowerCase())) {
-	  			$scope.downloadText = "ブラウザ/Safaraで開いてダウンロードしてください。";
-	  		} else {
-	  			$scope.downloadText = "ダウンロード";
-  				$scope.downloadUrl = "itms-services://?action=download-manifest&url=https://intasect.github.io/intalinx.plist";
-  			}
-	  		$scope.download = function() {
-	  			
-	  		}
-		});;
+    		controller('DownloadCtrl', function($scope, $mdDialog) {
+		  		$scope.downloadUrl = "";
+		  		if (/micromessenger/.test(navigator.userAgent.toLowerCase())) {
+		  			$scope.downloadText = "ブラウザ/Safaraで開いてダウンロードしてください。";
+		  		} else {
+		  			$scope.downloadText = "ダウンロード";
+	  				$scope.downloadUrl = "itms-services://?action=download-manifest&url=https://intasect.github.io/intalinx.plist";
+	  			}
+		  		$scope.download = function() {
+		  			alert = $mdDialog.alert({
+						title: '注意',
+						textContent: 'ダウンロード開始しました。ホーム画面からご確認ください。',
+						ok: '閉じる'
+					});
+					$mdDialog.show(alert).finally(function() {
+						alert = undefined;
+					});
+		  		}
+			});
 	</script>
   
 </body>
