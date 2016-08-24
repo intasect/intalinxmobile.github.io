@@ -62,7 +62,7 @@
 		*/
 	  	angular.module('DownloadApp', ['ngMaterial', 'monospaced.qrcode']).controller('DownloadCtrl', function($scope) {
 	  		$scope.downloadUrl = "";
-	  		if (/micromessenger|line/.test(navigator.userAgent.toLowerCase())) {
+	  		if (/micromessenger/.test(navigator.userAgent.toLowerCase())) {
 	  			$scope.downloadText = "ブラウザ/Safaraで開いてダウンロードしてください。";
 	  		} else {
 	  			$scope.downloadText = "ダウンロード";
