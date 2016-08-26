@@ -32,7 +32,7 @@
 		    </md-card-content>
 		    <md-card-actions layout="row" layout-align="center center">
 		    	<md-button md-no-ink class="md-primary" ng-show="!isWechat">
-		    		<a href="itms-services://?action=download-manifest&url=https://intasect.github.io/intalinx.plist" ng-click="download()">
+		    		<a ng-href="downloadURL" ng-click="download()">
 		    		ダウンロード
 		    		</a>
 		    	</md-button>
@@ -67,22 +67,24 @@
 	  		config(['$compileProvider', function ($compileProvider) {
           		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|itms-services):/);
     		}]).
-    		controller('DownloadCtrl', function($scope, $mdDialog) {
+    		controller('DownloadCtrl', function($scope, $mdToast) {
 		  		$scope.isWechat = true;
-		  		if (/micromessenger/.test(navigator.userAgent.toLowerCase())) {
+		  		var ua = navigator.userAgent.toLowerCase();
+		  		if (/micromessenger/.test(ua)) {
 		  			
 		  		} else {
 		  			$scope.isWechat = false;
 	  			}
+
+	  			if (/iphone/.test(ua)) {
+	  				$scope.downloadURL = "itms-services://?action=download-manifest&url=https://intasect.github.io/intalinx.plist";
+	  			} else {
+	  				$scope.downloadURL = "https://github.com/intasect/intasect.github.io/releases/download/developing/IntaLinxMobile.apk";
+	  			}
+
 		  		$scope.download = function() {
-		  			alert = $mdDialog.alert({
-						title: '注意',
-						textContent: 'ダウンロード開始しました。ホーム画面からご確認ください。',
-						ok: '閉じる'
-					});
-					$mdDialog.show(alert).finally(function() {
-						alert = undefined;
-					});
+		  			$mdToast.show($mdToast.simple()
+		  				.textContent('ダウンロード開始しました。ホーム画面からご確認ください。'));
 		  		}
 			});
 	</script>
