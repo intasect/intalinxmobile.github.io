@@ -31,14 +31,17 @@
 		        </p>
 		    </md-card-content>
 		    <md-card-actions layout="row" layout-align="center center">
-		    	<md-button md-no-ink class="md-primary" ng-show="!isWechat">
+		    	<md-button id="downloadLink" style="display:none" md-no-ink class="md-primary" ng-show="!isWechat">
 		    		<a ng-href="{{downloadURL}}" ng-click="download()">
 		    		ダウンロード
 		    		</a>
 		    	</md-button>
-		    	<a href="#" ng-show="isWechat">
+		    	<a id="downloadLinkForWechat" style="display:none" href="#" ng-show="isWechat">
 		    		ブラウザ/Safaraで開いてダウンロードしてください。
 	    		</a>
+				<a id="downloadLinkForUnsupportBrowser" href="https://github.com/intasect/intasect.github.io/releases/download/production/IntaLinx.Mobile.apk">
+					ダウンロード
+				</a>
 		    </md-card-actions>
 		</md-card>
 		</md-content>
@@ -68,6 +71,9 @@
           		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|itms-services):/);
     		}]).
     		controller('DownloadCtrl', function($scope, $mdToast) {
+				document.getElementById("downloadLink").style.display = "";
+				document.getElementById("downloadLinkForWechat").style.display = "";
+				document.getElementById("downloadLinkForUnsupportBrowser").style.display = "none";
 		  		$scope.isWechat = true;
 		  		var ua = navigator.userAgent.toLowerCase();
 		  		if (/micromessenger/.test(ua)) {
@@ -75,7 +81,6 @@
 		  		} else {
 		  			$scope.isWechat = false;
 	  			}
-
 	  			if (/iphone/.test(ua)) {
 	  				$scope.downloadURL = "itms-services://?action=download-manifest&url=https://intasect.github.io/intalinx.plist";
 	  			} else {
