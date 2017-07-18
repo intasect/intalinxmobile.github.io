@@ -39,7 +39,7 @@
 		    	<a id="downloadLinkForWechat" style="display:none" href="#" ng-show="isWechat">
 		    		ブラウザ/Safariで開いてダウンロードしてください。
 	    		</a>
-				<a id="downloadLinkForUnsupportBrowser" href="https://github.com/intasect/intasect.github.io/releases/download/production/IntaLinx.Mobile.apk">
+				<a id="downloadLinkForUnsupportBrowser" href="https://intasect.github.io/IntaLinxMobile.apk">
 					ダウンロード
 				</a>
 		    </md-card-actions>
@@ -84,7 +84,7 @@
 	  			if (/iphone/.test(ua)) {
 	  				$scope.downloadURL = "itms-services://?action=download-manifest&url=https://intasect.github.io/intalinx.plist";
 	  			} else {
-	  				$scope.downloadURL = "https://github.com/intasect/intasect.github.io/releases/download/production/IntaLinx.Mobile.apk";
+	  				$scope.downloadURL = "https://intasect.github.io/IntaLinxMobile.apk";
 	  			}
 
 		  		$scope.download = function() {
